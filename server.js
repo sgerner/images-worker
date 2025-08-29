@@ -46,7 +46,13 @@ app.set('trust proxy', true);
 app.use(helmet());
 app.use(cors({ origin: '*', methods: ['GET','POST'] }));
 app.use(compression());
-app.use('/processed-images', express.static(OUTPUT_DIR, { maxAge: '365d', immutable: true }));
+app.use('/processed-images', express.static(OUTPUT_DIR, {
+  maxAge: '365d',
+  immutable: true,
+  setHeaders: (res) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  }
+}));
 
 app.get('/healthz', (_req, res) => res.json({ ok: true }));
 app.get('/manifest.json', async (_req, res) => {
