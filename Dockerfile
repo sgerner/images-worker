@@ -15,8 +15,5 @@ ENV PORT=3000
 ENV DATA_DIR=/data
 # BASE_URL and AUTH_TOKEN must be set at runtime
 
-RUN useradd -m nodeuser && chown -R nodeuser:nodeuser /app
-USER nodeuser
-
 EXPOSE 3000
 CMD ["node", "server.js"]
